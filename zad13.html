@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+             function Person(firstName, lastName){
+                 this.firstName = firstName;
+                 this.lastName = lastName;
+             }
+
+             Person.prototype.getFullName = function(){
+                 return this.firstName + ' ' + this.lastName;
+             }
+
+             Person.prototype.sayHello = function(person){
+                 console.log(this.getFullName(), 'says hello to', person.getFullName());
+             }
+
+             function Student(firstName, lastName, indexNumber){
+                 Person.call(this, firstName, lastName);
+                 this.indexNumber = indexNumber;
+             }
+
+             Student.prototype = Object.create(Person.prototype);
+             Student.prototype.constructor = Student;
+
+
+             function Teacher(firstName, lastName, title){
+                 Person.call(this, firstName, lastName);
+                 this.title = title;
+             }
+
+             Teacher.prototype = Object.create(Person.prototype);
+             Teacher.prototype.constructor = Teacher;
+
+             var marcin = new Student('Marcin', 'Ciesielki', 100);
+             var nauczyciel = new Teacher('Andrzej', 'Jakis', 'dr');
+
+
+    </script>
+</body>
+</html>

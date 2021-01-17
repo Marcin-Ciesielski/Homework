@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Zadanie 5 Napisz skrypt, który sprawdzi czy podany ciąg znaków jest palindromem*. -->
+    <script>
+        var word = prompt('Podaj pierwszy wyraz').toLowerCase();
+
+        if (word == word.split('').reverse().join('')) {
+            alert('Podane słowo to palindrom');
+        } else {
+            alert('Podany wyrazy to nie jest palindrom');
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 8</title>
+</head>
+<!--Napisz skrypt, który dla podanej liczby całkowitej `n` wyświetli gwiazdkami w konsoli trójkąt równoboczny złożony z `n` wierszy (w pierwszym wierszu jedna gwiadka a kolejne wiersze coraz szersze).-->
+
+<body>
+    <script>
+        var userNumber = parseInt(prompt('Podaj z ilu wierszy ma się składać choinka'));
+
+        for (i = 1; i <= userNumber; i++) {
+            var choinka = "";
+            for (j = i; j < userNumber; j++) {
+                choinka += " ";
+            }
+            for (k = 0; k < (i * 2) - 1; k++) {
+                choinka += "*";
+            }
+            console.log(choinka);
+        }
+    </script>
+</body></html>

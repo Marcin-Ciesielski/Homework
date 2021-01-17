@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Napisz skrypt, który sprawdzi czy dwa podane ciągi znaków są anagramami*. -->
+    <script>
+        var word1 = prompt('Podaj pierwszy wyraz').toLowerCase();
+        var word2 = prompt('Podaj pierwszy wyraz').toLowerCase();
+        
+        if (word1.split('').sort().join('') == word2.split('').sort().join('')) {
+            alert('Podane słowa to anagramy');
+        } else {
+            alert('Podane wyrazy to nie są anagramy');
+        }
+
+    </script>
+</body>
+</html>

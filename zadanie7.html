@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 7</title>
+</head>
+<body>
+  
+<!--  Napisz skrypt dla wprowadzonej liczby całkowitej `n` wyświetli gwiazdkami w konsoli prostokąt złożony z `n` wierszy oraz `2n` kolumn.
+ Dla n = 5:
+
+```
+**********
+**********
+**********
+**********
+**********
+ 
+ 
+ -->
+  
+   <script>
+       var userNumber = parseInt(prompt('Podaj liczbę od 1 do 10'));
+       var rows = userNumber;
+       var cols = userNumber * 2;
+       var znak = '';
+       for(let i = 1; i <= rows; i++) {
+       znak += "\n"
+           for(let j = 1; j <= cols; j++){
+        znak += " *";
+           }
+        
+       }
+       console.log(znak);
+
+
+   </script> 
+</body>
+</html>

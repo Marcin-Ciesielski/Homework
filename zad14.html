@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<!--
+   Napisz funkcję zwracającą `Promise`, który po pewnym czasie
+   losowo zmieni status na fulfilled bądź rejected.
+-->
+    <script>
+        function getRandomPromise() {
+  return new Promise(function(resolve, reject) {
+    var timeout = Math.round(Math.random() * 5000);
+
+    setTimeout(function() {
+      var random = Math.random();
+
+      if (random > 0.5) {
+        resolve(timeout);
+      } else {
+        reject(timeout);
+      }
+
+    }, timeout);
+  });
+}
+
+getRandomPromise()
+  .then(function(timeout) {
+    console.log('fulfilled after', timeout);
+  })
+  .catch(function(timeout) {
+    console.log('rejected after', timeout);
+  });
+
+function createPromise(timeout, val) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, timeout, val);
+  });
+}
+    </script>
+</body></html>

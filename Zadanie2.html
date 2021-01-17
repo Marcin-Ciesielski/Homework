@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie 8</title>
+</head>
+<!-- Zadanie 2
+Napisz skrypt który dla podanego przez użytkownika roku zwróci informację czy jest on przestępny.
+ latami przestępnymi są te, których numeracja:
+    jest podzielna przez 4 i niepodzielna przez 100 lub
+    jest podzielna przez 400
+ -->
+
+<body>
+    <script>
+        function checkYear() {
+            var year = parseInt(prompt('Podaj rok'));
+            if (year % 4 === 0 && (year % 100 != 0) || (year % 400 == 0)) {
+                alert('Przestepny');
+            } else {
+                alert('Nieprzestepny');
+            }
+        }
+
+        checkYear();
+
+    </script>
+</body>
+
+</html>

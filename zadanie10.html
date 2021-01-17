@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!--
+   Napisz funkcję która dla podanej liczby zwróci tablicę jej
+dzielników. Dla liczb pierwszych funkcja powinna rzucać
+wyjątek informujący że przekazana wartość jest liczbą pierwszą.
+-->
+    <script>
+        var array = [];
+        array.length = 10;
+        array.fill(0);
+        array = array.map(function(){
+            return Math.round(Math.random() * 100);
+        });
+        var index = array.findIndex(function(value){
+            for(var i = 2; i < value; i++){
+                if(value % i === 0){
+                    return false;
+                }
+                
+            }
+            return true;
+        });
+        if(index === -1) {
+            throw new Error ('Brak liczb pierwszych');
+        }
+
+        var value = array[index];
+
+        console.log(array);
+        console.log(index);
+        console.log(value);
+
+    </script>
+</body>
+</html>
