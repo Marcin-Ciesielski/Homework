@@ -10,17 +10,17 @@
 
 <body>
     <script>
-        var userNumber = parseInt(prompt('Podaj z ilu wierszy ma się składać choinka'));
+        var userNumber = parseInt(prompt('Podaj z ilu wierszy ma się składać trójkąt'));
 
         for (i = 1; i <= userNumber; i++) {
-            var choinka = "";
+            var triangle = "";
             for (j = i; j < userNumber; j++) {
-                choinka += " ";
+                triangle += " ";
             }
             for (k = 0; k < (i * 2) - 1; k++) {
-                choinka += "*";
+                triangle += "*";
             }
-            console.log(choinka);
+            console.log(triangle);
         }
     </script>
 </body></html>
