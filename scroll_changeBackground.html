@@ -1,0 +1,77 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Zmiana bgColor, fontColor i textShadow</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(8, 51, 51);
+            /*  początkowa wartość  */
+            width: 100%;
+            height: 350vh;
+        }
+
+        h1 {
+            position: fixed;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgb(127, 255, 212);
+            text-shadow: 0 0px 3px black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Marcin</h1>
+    <script>
+        // Zmiana odcienia kolory tła background wraz ze skrollem w dół. Scroll w górę - powrót do pierwotnej barwy
+        // początkowa wartość z css dla background
+        let red = 8;
+        let green = 51;
+        let blue = 51;
+        let h1red = 127;
+        let h1green = 255;
+        let h1blue = 212;
+        let textShadow = 0;
+        let lettSpacing = 0;
+        let fontS = 32;
+
+        const changeAll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let final = ((winScroll / height) * 25); // *25 a nie *100 daje słabszy efekt/delikatniejszy efekt zmiany kolory tła
+            let final2 = ((winScroll / height) * 100);
+            const h1 = document.querySelector('h1');
+
+            // red = final; - stałe dla małej/mało radykalnej zmiany koloru
+            green = final + 51; // +51 pozostawia barwę identyczną jak jej początkowa wartość w CSS
+            blue = final + 51;
+            h1red = final2 + 127;
+            // h1green = final2; - zielony bez zmian - mała rewolucja w kolorze
+            h1blue = final2 + 212;
+            textShadow = final2;
+            lettSpacing = final2 * 0.1;
+            fontS = final2 * 0.1 + 32;
+            document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+            h1.style.color = `rgb(${h1red}, ${h1green}, ${h1blue})`;
+            h1.style.textShadow = `0 ${textShadow}px 3px black`;
+            h1.style.letterSpacing = `${lettSpacing}px`;
+            h1.style.fontSize = `${fontS}px`;
+        }
+
+        window.addEventListener("scroll", changeAll);
+    </script>
+</body></html>
