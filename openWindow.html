@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open New Window</title>
+  </head>
+
+  <body>
+    <form>
+      <label for="adres">Adres</label><br />
+      <input type="text" id="adres" name="adres" value="" /><br />
+      <label for="winHeight">Window height in pixels:</label><br />
+      <input type="text" id="winHeight" name="winHeight" value="" /><br />
+      <label for="winWidth">Window width in pixels:</label><br />
+      <input type="text" id="winWidth" name="winWidth" value="" /><br /><br />
+      <input type="submit" id="submit" value="Submit" />
+    </form>
+
+    <script>
+      var adres = document.querySelector("#adres");
+      var height = document.querySelector("#winHeight");
+      var width = document.querySelector("#winWidth");
+      var submit = document.querySelector("#submit");
+
+      submit.addEventListener("click", function () {
+        let newHeight = parseInt(height.value, 10);
+        let newWidth = parseInt(width.value, 10);
+        var link = "https://" + adres.value;
+
+        window.open(
+          link,
+          "_blank",
+          "width=" + newWidth + ", height=" + newHeight + ""
+        );
+        return false;
+      });
+    </script>
+  </body>
+</html>
