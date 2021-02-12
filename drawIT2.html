@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title>Paint Me - just with pencil ;/</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            max-height: 100vh;
+            width: 100%;
+        }
+
+        form {
+            position: absolute;
+            top: 5px;
+            left: 15px;
+        }
+
+        input[type="color"] {
+            position: absolute;
+            top: 0px;
+            left: 100px;
+            z-index: 100;
+        }
+        
+        #strong {
+            position: absolute;
+            top: 0px;
+            left: 450px;
+            width: 180px;    
+            z-index: 10000;
+            
+        }
+        
+        #power {
+            position: absolute;
+            top: 0px;
+            left: 150px;
+            z-index: 10001;
+            height: 30px;
+            background-color: #fff;
+        }
+
+        p {
+            position: absolute;
+            top: 5px;
+            left: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label for="color">Pick the color
+            <input type="color" id="pickColor" name="color">
+        </label>
+
+       <div id="strong">
+        <label for="volume">Pencil power 1-10
+            <input type="range" id="power" name="volume" min="1" max="10">
+        </label>
+        </div>
+    </form>
+    <p><label for="tools">Drawing tool:
+            <select id="tools" name="tools">
+                <option value="pencil">Pencil</option>
+                <option value="line">Line</option>
+                <option value="rect">Rectangle</option>
+            </select>
+        </label>
+    </p>
+    <canvas id="canvas">
+        <p>Twoja przeglądarka nie obsługuje Canvas, pewnie to stary Internet Explorer</p>
+    </canvas>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.canvas.width = window.innerWidth; // nadaj canvas wymiary okna przeglądarki
+        ctx.canvas.height = window.innerHeight;
+
+        var pos = {
+            x: 0,
+            y: 0
+        };
+
+        document.addEventListener('mousemove', draw);
+        document.addEventListener('mousedown', setPosition);
+        document.addEventListener('mouseenter', setPosition);
+
+        // pozycja kursora
+        function setPosition(e) {
+            pos.x = e.clientX;
+            pos.y = e.clientY;
+        }
+
+        function draw(e) {
+            const pickColor = document.querySelector('#pickColor');
+            let strong = document.getElementById('power').value;
+
+            // jeśli naciśnięty lewy guzik myszki
+            if (e.buttons !== 1) return;
+
+            ctx.beginPath(); // niezbędne do zaczęcia rysowania
+            ctx.lineWidth = strong;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = pickColor.value;
+            ctx.moveTo(pos.x, pos.y); // początek
+            setPosition(e);
+            ctx.lineTo(pos.x, pos.y); // koniec
+            ctx.stroke();
+        }
+    </script>
+</body></html>
