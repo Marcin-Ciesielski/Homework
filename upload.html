@@ -72,13 +72,11 @@
         </p>
         <p><label for="file" style="cursor: pointer">Upload photo <i class="fas fa-download"></i></label></p>
     </form>
-    <!-- <p><img id="output" width="200" /></p> -->
     <div class="wrapper"></div>
     <script>
         const input = document.querySelector('#file');
 
         input.addEventListener('change', function(event) {
-            // var image = document.getElementById('output');
             let wrapper = document.querySelector('.wrapper');
             let picArea = document.createElement("img");
             picArea.classList.add("pictur");
