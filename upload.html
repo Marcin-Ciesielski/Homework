@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <title>Upload photos</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: teal;
+            color: aliceblue;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        label {
+            color: aliceblue;
+            transition: .2s;
+        }
+        
+        label:hover {
+            color: #b3ff25;
+        }
+
+        .wrapper {
+            position: relative;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            padding: 100px;
+            height: calc(100vh - 60px);
+            background-color: slategrey;
+            display: flex;
+            flex-flow: wrap row;
+            justify-content: center;
+        }
+
+        .pictur {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            overflow: hidden;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <p>
+            <input type="file" accept="image/*" name="image" id="file" style="display: none" />
+        </p>
+        <p><label for="file" style="cursor: pointer">Upload photo <i class="fas fa-download"></i></label></p>
+    </form>
+    <!-- <p><img id="output" width="200" /></p> -->
+    <div class="wrapper"></div>
+    <script>
+        const input = document.querySelector('#file');
+
+        input.addEventListener('change', function(event) {
+            // var image = document.getElementById('output');
+            let wrapper = document.querySelector('.wrapper');
+            let picArea = document.createElement("img");
+            picArea.classList.add("pictur");
+            wrapper.append(picArea);
+            picArea.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
+</body></html>
