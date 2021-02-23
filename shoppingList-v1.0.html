@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,900;1,400&display=swap" rel="stylesheet">
+    <title>Candy Shopping List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: darkslategrey;
+            font-family: 'Lato', sans-serif;
+        }
+
+        h1 {
+            letter-spacing: 3px;
+            color: rgb(139, 47, 224);
+            text-shadow: 2px 2px rgba(0, 0, 0, 0.46),
+                3px 3px rgba(41, 226, 165, 0.32);
+            margin-bottom: 0.5em;
+        }
+
+        #content {
+            background-color: #8c00ff;
+            min-height: 50vh;
+            width: 50%;
+            max-width: 600px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        input#shoppingItem {
+            margin: 10px 7px;
+            background-color: black;
+            color: aliceblue;
+        }
+
+        button#add2list {
+            width: 70px;
+        }
+
+        ul {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: aquamarine;
+        }
+
+        ul li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            list-style-type: none;
+            width: 100%;
+            height: 40px;
+            position: relative;
+        }
+
+        ul li:nth-child(odd) {
+            background-color: #29e2a5;
+        }
+
+        li p {
+            font-weight: bold;
+            position: relative;
+            left: 5px;
+        }
+        
+        /*                         /      */
+        /* dodaj znak odhaczenia \/       */
+        li p.got:before {
+            content: "\02713";
+            margin-right: 5px;
+            font-weight: bold;
+            color: #8c00ff;
+        }
+
+        li button {
+            position: absolute;
+            right: 5px;
+            width: 50px;
+            height: 32px;
+            background-color: #e02f2f;
+            color: aliceblue;
+            border: none;
+        }
+
+        li button.done {
+            position: absolute;
+            right: 60px;
+            width: 60px;
+            height: 32px;
+            background-color: #1a9532;
+            color: aliceblue;
+            border: none;
+        }
+        
+        @media (max-width: 600px) {
+            #content {
+            width: 90%;
+        }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Shopping List v1.0</h1>
+    <div id="content">
+        <label for="shoppingItem">
+            <input type="text" id="shoppingItem" placeholder="Dodaj do listy zakupow...">
+        </label>
+        <button id="add2list">Dodaj</button>
+        <ul id="shoppingList"></ul>
+    </div>
+
+    <script>
+        // Cookies first
+        function setCookie(cookieName, cookieValue, date) {
+            document.cookie = cookieName + "=" + cookieValue + ";expires=" + date.toUTCString();
+        }
+
+        function updateCookie(cookieName, cookieValue, date) {
+            setCookie(cookieName, cookieValue, date);
+        }
+        // nazwa:wartosc
+        function getCookie(cookieName) {
+            var nameValuePairs = document.cookie.split("; ");
+            for (var i = 0; i < nameValuePairs.length; i++) {
+                var parts = nameValuePairs[i].split("=");
+                if (parts[0] == cookieName) {
+                    return parts[1];
+                }
+            }
+        }
+
+        // shopping list <ul>
+        var shoppingUlList = document.getElementById('shoppingList');
+
+        var shoppingLi, shoppingP, shoppingDelete, shoppingDone;
+        
+        var shoppingList_str = getCookie('ShoppingListItems');
+        var shoppingList = []; //lista zakupow
+        if (shoppingList_str) {
+            shoppingList = JSON.parse(shoppingList_str);
+            shoppingList.forEach(element => {
+                CreateListItem(element, shoppingUlList);
+            });
+        }
+
+        // tworzenie li,p, button usun, button kupione i dodanie do wiersza
+        function CreateListItem(str, ul) {
+            shoppingLi = document.createElement('li');
+            shoppingP = document.createElement('p');
+            shoppingDone = document.createElement('button');
+            shoppingDone.classList.add('done');
+            shoppingDelete = document.createElement('button');
+            shoppingDelete.addEventListener('click', function() {
+                this.parentNode.parentNode.removeChild(this.parentNode);
+                var index = shoppingList.indexOf(this.previousSibling.innerText);
+                shoppingList.splice(index, 1);
+                updateCookie(shoppingList);
+            });
+
+            shoppingDone.addEventListener('click', function() {
+                if(this.innerText == 'Kupione'){
+                    this.innerText = 'Kup';
+                } else {
+                    this.innerText = 'Kupione';
+                }  
+                // jesli produkt z listy zakupow jest kupiony (shoppingDone) to nadaj mu klase got i odhacz
+                this.previousSibling.previousSibling.classList.toggle('got');
+                console.log(this.previousSibling.previousSibling);
+                
+            });
+
+            shoppingP.innerText = str;
+            shoppingDelete.innerText = 'Usuń';
+            shoppingDone.innerText = 'Kupione';
+            shoppingLi.appendChild(shoppingP);
+            shoppingLi.appendChild(shoppingDelete);
+            shoppingLi.appendChild(shoppingDone);
+            ul.appendChild(shoppingLi);
+        }
+        
+        const addBtn = document.getElementById('add2list');
+        addBtn.addEventListener('click', function(){
+            var shoppingItem = document.getElementById('shoppingItem');
+            if (shoppingItem.value == '') {
+                alert('Dodaj artykuł...');
+                return;
+            }
+            shoppingList.push(shoppingItem.value);
+            updateCookie(shoppingList);
+            CreateListItem(shoppingItem.value, shoppingUlList);
+            shoppingItem.value = '';
+        });
+
+        function updateCookie(items) {
+            var shoppingList_str = JSON.stringify(items);
+            var shopDate = new Date();
+            shopDate.setDate(30);   // 30 dni waznosci
+            setCookie('ShoppingListItems', shoppingList_str, shopDate);
+        }
+
+    </script>
+</body>
+
+</html>
